@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práctica 1</title>
+</head>
+<body style="background-color: rgb(194, 194, 192);">
+    <h1 style="text-align: center; color: rgb(68, 68, 67); font-family: Verdana;">Volkswagen Potosina</h1>
+    <h2 style="text-align: center; color: rgb(68, 68, 67); font-family: Verdana;" >Compras Online</h2><br/>
+    <form action="" method="post" enctype="text/plain"></form>
+    <fieldset style="color: rgb(68, 68, 67); font-family: Arial; border-color: rgb(68, 68, 67);">
+        <legend style="color: rgb(68, 68, 67); font-weight:bold; font-family: Verdana;">Información general del cliente</legend>
+        <table style="margin: auto; border-spacing: 20px;">
+            <tr>
+                <td>
+                    <label for="nom">Nombre</label>
+                    <input type="text" name="nom" id="nom" placeholder="Nombre" title="Nombre" required>
+                </td>
+                <td>
+                    <label for="apellidopat" style="margin-left: 45px;">Apellido Paterno</label><br/>
+                    <input style="margin-left: 45px;" type="text" name="apellidopat" id="apellidopat" placeholder="Apellido Paterno" title="Apellido Paterno">
+                </td>
+                <td>
+                    <label for="apellidomat" style="margin-left: 45px;">Apellido Materno</label><br/>
+                    <input style="margin-left: 45px;" type="text" name="apellidomat" id="apellidomat" placeholder="Apellido Materno" title="Apellido Materno" >
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="usuario">Nombre de Usuario</label><br/>
+                    <input type="text" name="usuario" id="usuario" placeholder="Usuario" title="Usuario" required>
+                </td>
+                <td>
+                    <label for="pass" style="margin-left: 45px;">Password</label>
+                    <input type="password" name="pass" id="pass" placeholder="Password" title="Password" required>
+                </td>
+                <td>
+                    <label for="reg" style="margin-left: 45px;">Fecha de Registro</label>
+                    <input type="date" name="reg" id="reg">
+                </td>
+            </tr>
+        </table>
+    </fieldset><br/>
+    <fieldset style="color: rgb(68, 68, 67); font-family: Arial; border-color: rgb(68, 68, 67);">
+        <legend style="color: rgb(68, 68, 67); font-weight:bold; font-family: Verdana;">Datos para facturar</legend>
+        <table style="border-spacing: 20px;">
+            <tr>
+                <td>
+                    <label for="pais" style="margin-left: 293px;">País</label><br/>
+                    <select name="pais" id="pais" size="3" style="margin-left: 293px;">País
+                        <option selected>México</option>
+                        <option>Estados Unidos</option>
+                        <option>Canada</option>
+                    </select>
+                </td>
+                <td>
+                    <label for="cd" style="margin-left: 103px;">Ciudad</label><br/>
+                    <select name="cd" id="cd" size="3" style="margin-left: 103px;">Ciudad
+                        <option selected>Ciudad Valles</option>
+                        <option>Salinas</option>
+                        <option>Xilitla</option>
+                    </select>
+                </td>
+                <td>
+                    <label for="calle" style="margin-left: 120px;">Calle</label><br/>
+                    <input style="margin-left: 120px;" type="text" name="calle" id="calle" placeholder="Calle" title="Calle">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="casa" style="margin-left: 293px;">Número de casa</label><br/>
+                    <input style="margin-left: 293px;" type="number" name="casa" id="casa" placeholder="Número Exterior" title="Número Exterior">
+                </td>
+                <td>
+                    <label for="col" style="margin-left: 103px;">Colonia</label><br/>
+                    <input style="margin-left: 103px;" type="text" name="col" id="col" placeholder="Colonia" title="Colonia">
+                </td>
+                <td>
+                    <label for="mail" style="margin-left: 120px;">E-mail</label><br/>
+                    <input style="margin-left: 120px;" type="email" name="mail" id="name" placeholder="E-mail" title="E-mail" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="rfc" style="margin-left: 293px;">R.F.C</label><br/>
+                    <input style="margin-left: 293px;" type="text" name="rfc" id="rfc" placeholder="R.F.C" title="R.F.C">
+                </td>
+                <td>
+                    <label for="cp" style="margin-left: 103px;">C.P</label><br/>
+                    <input style="margin-left: 103px;" type="number" name="cp" id="cp" placeholder="Código Postal" title="Código Postal">
+                </td>
+                <td>
+                    <input style="margin-left: 120px;" type="checkbox" name="terminos" id="terminos">
+                    <label for="terminos">Acepto términos y condiciones</label><br/>
+                    <input style="margin-left: 120px;" type="submit" name="enviar" id="enviar">
+                    <input type="submit" name="restablecer" id="restablecer" value="Restablecer">
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+    <footer>
+        <h3 style="text-align: right;">Febrero 2025, SLP.</h3>
+    </footer>
+</body>
+</html>
