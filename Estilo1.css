@@ -1,0 +1,49 @@
+body{
+    background-color: rgb(243, 240, 214);
+}
+table{
+    width: 100%;
+    margin: auto;
+    border: 1px solid lightcoral; /*Bordes externos*/
+    border-collapse: collapse; /*Junta las lineas de los bordes de las tablas*/
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    caption-side: top;
+    /*Bottom - Se pone el titulo 
+    Top - Se pone el tiulo de la tabla arriba*/
+}
+th,td{
+    border: 1px solid lightcoral;
+    
+}
+th{
+    padding: 1%;
+
+}
+td{
+    padding: 1%;
+    text-align: justify;
+}
+table tr:nth-child(odd){
+    background-color: rgb(252, 151, 114);
+
+}
+table tr:nth-child(even){
+    background-color: rgb(241, 198, 183);
+
+}
+tr th{
+    background-color: rgb(145, 43, 7);
+    color: white;
+}
+table tr:hover{
+    background-color: brown;
+    color: white;
+
+}
+body h1{
+    color: rgb(97, 29, 4);
+}
+caption{
+    color:rgb(97, 29, 4);
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
