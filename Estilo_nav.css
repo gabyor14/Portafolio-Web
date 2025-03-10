@@ -1,0 +1,22 @@
+ul{
+    list-style-type: none; /*Eliminar las viñetas*/
+    width: 20%;
+    background-color: rgb(217, 189, 243);
+    padding: 0;
+    margin: 0;
+}
+li a{
+    display: block; /*Elimpervínvulo se maneja como bloque, aunque no tenga texto se puede seleccionar*/
+    background-color: rgb(194, 154, 231);
+    padding: 10px;
+    text-decoration: none; /*Le quita lo subrayado*/
+}   
+li a:hover{
+    background-color: blueviolet;
+    color: white;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+li a.activo{
+    background-color: rgb(82, 3, 116);
+    color: white;
+}
