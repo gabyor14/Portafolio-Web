@@ -3,8 +3,17 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Cocina Económica Doña Tere</title>
+	<title>Carta - Cocina Ecnómica Doña Tere</title>
 	<link rel="stylesheet" type="text/css" href="carta_proyecto.css">
+	<link rel="icon" type="imagen/png" href="imagenes/Logo.png">
+
+	<script type="text/javascript" src="jspdf/js/jquery/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="jspdf/js/jquery/jquery-ui-1.8.17.custom.min.js"></script>
+	<script type="text/javascript" src="jspdf/jspdf.js"></script>
+	<script type="text/javascript" src="jspdf/jspdf.plugin.addimage.js"></script>
+	<script type="text/javascript" src="jspdf/jspdf.plugin.standard_fonts_metrics.js"></script>
+	<script type="text/javascript" src="jspdf/jspdf.plugin.split_text_to_size.js"></script>
+	<script type="text/javascript" src="jspdf/jspdf.plugin.from_html.js"></script>
 </head>
 <body>
 	<header class="header">
@@ -18,7 +27,7 @@
 			<nav class="menu">
 				<ul>
 					<li><a href="index_proyecto.html">Inicio</a></li>
-					<li class="selected"><a href="#">Carta</a></li>
+					<li class="selected"><a href="carta_proyecto.html">Carta</a></li>
 					<li><a href="promociones_proyecto.html">Promociones</a></li>
 					<li><a href="nosotros_proyecto.html">Nosotros</a></li>
 				</ul>
@@ -27,29 +36,60 @@
 	</header>
 
 	<main class="main">
+
 		<div class="central">
+
 			<div class="platillo">
 				<img src="imagenes/carta_img1.png" class="destacado">
-				<button class="añadir">Añadir</button>
+				<div class="contador">
+					<button class="restar">-</button>
+					<div class="cantidad" data-platillo="Filete de pollo con arroz y ensalada">0</div>
+					<button class="sumar">+</button>
+				</div>
 			</div>
+
 			<div class="platillo">
 				<img src="imagenes/carta_img2.png" class="destacado">
-				<button class="añadir">Añadir</button>
+				<div class="contador">
+					<button class="restar">-</button>
+					<div class="cantidad" data-platillo="Filete de res con arroz y ensalada">0</div>
+					<button class="sumar">+</button>
+				</div>
 			</div>
+
 			<div class="platillo">
 				<img src="imagenes/carta_img3.png" class="destacado">
-				<button class="añadir">Añadir</button>
+				<div class="contador">
+					<button class="restar">-</button>
+					<div class="cantidad" data-platillo="Chiles rellenos">0</div>
+					<button class="sumar">+</button>
+				</div>
 			</div>
 			<div class="platillo">
 				<img src="imagenes/carta_img4.png" class="destacado">
-				<button class="añadir">Añadir</button>
+				<div class="contador">
+					<button class="restar">-</button>
+					<div class="cantidad" data-platillo="Orden de arroz">0</div>
+					<button class="sumar">+</button>
+				</div>
 			</div>
 			<div class="platillo">
 				<img src="imagenes/carta_img5.png" class="destacado">
-				<button class="añadir">Añadir</button>
+				<div class="contador">
+					<button class="restar">-</button>
+					<div class="cantidad" data-platillo="Tortitas de papa">0</div>
+					<button class="sumar">+</button>
+				</div>
 			</div>
 		</div>
-	
+
+
+		<center>
+			<button class="finalizar" id="finalizarPedido" style="cursor: pointer;">Finalizar Pedido</button><br/><br/>
+			<iframe frameborder="0" id="pdf_ticket"></iframe>
+		</center>
+
+
 		<footer class="footer">
 			<ul class="menu-footer">
 				<li class="menu-elem">
@@ -59,7 +99,7 @@
 					<a href="carta_proyecto.html" class="menu-icon">Carta</a>
 				</li>
 				<li class="menu-elem">
-					<a href="promociones_proyecto.html" class="menu-icon">Promociones</a>
+					<a href="promociones.html" class="menu-icon">Promociones</a>
 				</li>
 				<li class="menu-elem">
 					<a href="nosotros_proyecto.html" class="menu-icon">Nosotros</a>
