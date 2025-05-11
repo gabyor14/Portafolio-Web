@@ -94,6 +94,9 @@ body{
 
 
 /*Aquí empieza el main*/
+.main{
+	background-color: #f8ede3;
+}
 
 .central{
 	background-color: #f8ede3;
@@ -109,11 +112,10 @@ body{
 }
 .platillo{
 	width: 100%;
-	max-width: 400px; /* Asegura que no se vean muy chicas */
+	max-width: 400px;
 	text-align: center;
-	
 	margin-left: 10%;
-	margin-top: 12%;
+	margin-top: 10%;
 	margin-bottom: 5%;
 	text-align: center;
 }
@@ -121,22 +123,55 @@ body{
 	width: 100%;
 	height: auto;
 }
-.añadir{
+
+.restar{
 	margin-top: 2%;
-	border: 2px solid;
-	border-radius: 50px;
-	padding: 3%;
+	border-radius: 10px;
+	border: none;
+	padding: 2% 5%;
 	font-size: 20px;
 	background-color: #8d493a;
 	color: #dfd3c3;
 	font-weight: bold;
 }
 
-.añadir:hover{
+.sumar{
+	border-radius: 10px;
+	border: none;
+	padding: 2% 5%;
+	font-size: 20px;
+	background-color: #8d493a;
+	color: #dfd3c3;
+	font-weight: bold;
+}
+
+.restar:hover{
 	color: #8d493a;
 	background-color: #dfd3c3;
 }
 
+.sumar:hover{
+	color: #8d493a;
+	background-color: #dfd3c3;
+}
+
+#finalizarPedido{
+	color: #dfd3c3;
+	background-color: #8d493a;
+	font-weight: bold;
+	border: none;
+	font-size: 20px;
+	padding: 15px;
+	border-radius: 10px;
+	margin-bottom: 20px;
+}
+
+#pdf_ticket{
+	width: 75%;
+	height: 500px;
+	margin-bottom: 3%;
+	display: none;
+}
 /*Aquí termina el main*/
 
 
