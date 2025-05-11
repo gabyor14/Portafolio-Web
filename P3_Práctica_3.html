@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stranger Things</title>
+    <script type="text/javascript" src="jspdf/js/jquery/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="jspdf/js/jquery/jquery-ui-1.8.17.custom.min.js"></script>
+	<script type="text/javascript" src="jspdf/jspdf.js"></script>
+
+	<script type="text/javascript" src="jspdf/jspdf.plugin.addimage.js"></script>
+
+	<script type="text/javascript" src="jspdf/jspdf.plugin.standard_fonts_metrics.js"></script>
+	<script type="text/javascript" src="jspdf/jspdf.plugin.split_text_to_size.js"></script>
+	<script type="text/javascript" src="jspdf/jspdf.plugin.from_html.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="stranger.css">
+</head>
+<body>
+    <h1>Pon a prueba cuanto sabes de Stranger Things</h1>
+    <form name="formulario">
+        <label for="p1">1.  ¿Cómo se llama el mundo alterno de Stranger Thing?</label>
+        <input type="radio" name="p1" id="p1" value="A">   Darkside<br>
+        <input type="radio" name="p1" id="p1" value="B">   Upside Down<br>
+        <input type="radio" name="p1" id="p1" value="C">   Netherworld<br>
+        <input type="radio" name="p1" id="p1" value="D">   Dimension X<br><br>
+        <label for="p2">2.  ¿Qué poder tiene Eleven?</label>
+        <input type="radio" name="p2" id="p2" value="A">   Controlar el tiempo<br>
+        <input type="radio" name="p2" id="p2" value="B">   Volar<br>
+        <input type="radio" name="p2" id="p2" value="C">   Telequinesis<br>
+        <input type="radio" name="p2" id="p2" value="D">   Invisibilidad<br><br>
+        <label for="p3">3.  ¿Cuál es el nombre del Sheriff de Hawkins?</label>
+        <input type="radio" name="p3" id="p3" value="A">   Jim Hopper<br>
+        <input type="radio" name="p3" id="p3" value="B">   Bob Newby<br>
+        <input type="radio" name="p3" id="p3" value="C">   Steve Harrington<br>
+        <input type="radio" name="p3" id="p3" value="D">   Jonathan Byers<br><br>
+        <label for="p4">4.  ¿Qué criatura aparace como la amenaza principal en la segunda temporada?</label>
+        <input type="radio" name="p4" id="p4" value="A">   Demogorgon<br>
+        <input type="radio" name="p4" id="p4" value="B">   Azotamentes<br>
+        <input type="radio" name="p4" id="p4" value="C">   Demo-dogs<br>
+        <input type="radio" name="p4" id="p4" value="D">   Vecna<br><br>
+        <label for="p5">5.  ¿Cuál es el nombre real de Eleven?</label>
+        <input type="radio" name="p5" id="p5" value="A">   Jane Ives<br>
+        <input type="radio" name="p5" id="p5" value="B">   Sarah Hopper<br>
+        <input type="radio" name="p5" id="p5" value="C">   Nancy Wheeler<br>
+        <input type="radio" name="p5" id="p5" value="D">   Robin Buckley<br><br><br>
+        <div class="botones">
+            <input type="button" name="res" id="res" value="Comprobar Resultados">
+            <input type="button" name="pdf" id="pdf" value="Generar PDF ">
+        </div>
+        <div id="resultados">
+            <div id="mensaje"></div>
+            <iframe id="pdfIframe" style="width:100%; height:500px; margin-top:20px; display:none;"></iframe>
+        </div>
+          <div>
+            <canvas id="grafico" width="400" height="200"></canvas>
+        </div>
+    </form>
+    <script type="text/javascript" src="cuestionario.js"></script>
+</body>
+</html>
