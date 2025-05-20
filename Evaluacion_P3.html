@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estacionamiento</title>
+    <link rel="stylesheet" href="css_p3.css">
+</head>
+<body>
+    <h1>Pagos de estacionamiento</h1>
+    <form>
+        <label for="horas">Horas de estacionamiento:</label><br>
+        <input type="number" id="horas" required><br><br>
+
+        <label for="auto">Tipo de auto:</label><br>  
+        <select id="auto" required>
+            <option value="ac">Auto Chico</option>
+            <option value="cam">Camioneta</option>
+            <option value="camion">Camión</option>
+        </select><br><br>
+
+        <input type="button" value="Generar Total a Pagar" onclick="leer()">
+    </form>
+
+    <div>
+        <p id="total"></p>
+    </div>
+
+    <script type="text/javascript" src="java_p3.js"></script>
+</body>
+</html>
