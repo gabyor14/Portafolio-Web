@@ -12,19 +12,21 @@
         
         .dashboard { background: #2c3e50; color: white; padding: 15px; border-radius: 8px; margin-bottom: 20px; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
         
-        .money-panel { background: #27ae60; padding: 10px; border-radius: 5px; text-align: center; margin-bottom: 15px; border: 2px solid #2ecc71; }
+        .money-panel { background: #27ae60; padding: 10px; border-radius: 5px; text-align: center; margin-bottom: 15px; border: 2px solid #2ecc71; position: relative;}
         .money-panel h2 { margin: 0; font-size: 1.2rem; color: #fff; }
         .money-amount { font-size: 1.8rem; font-weight: bold; }
         
+        .btn-reset { background: #f39c12; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; transition: background 0.3s;}
+        .btn-reset:hover { background: #d68910; }
+
         .resource { margin-bottom: 10px; font-size: 0.95rem; }
         .resource span { font-weight: bold; }
         .bar-bg { width: 100%; background: rgba(255,255,255,0.2); border-radius: 5px; height: 18px; overflow: hidden; margin-top: 5px; }
         .bar-fill { height: 100%; background: #3498db; width: 0%; transition: width 0.3s, background 0.3s; }
         
-        /* Colores de estado para las barras */
         .safe { background: #3498db; }
-        .optimal { background: #f1c40f; } /* Cerca del límite (buen uso) */
-        .warning { background: #e74c3c !important; } /* Excedido */
+        .optimal { background: #f1c40f; } 
+        .warning { background: #e74c3c !important; } 
         
         .slider-group { margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
         .slider-group label { display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 5px; font-size: 0.9rem; }
@@ -41,7 +43,7 @@
     
     <div class="dashboard" id="dashboard">
         <div class="money-panel">
-            <h2>Ganancia Proyectada (Z)</h2>
+            <h2>Ganancia Máxima (Z)</h2>
             <div class="money-amount" id="val-ganancia">$0.00 MXN</div>
         </div>
 
@@ -58,6 +60,8 @@
             Horas de Ensamble: <span id="val-horas">0</span> / 160
             <div class="bar-bg"><div class="bar-fill safe" id="bar-horas"></div></div>
         </div>
+
+        <button class="btn-reset" onclick="resetToOptimal()">🌟 Restaurar Óptimo Matemático</button>
     </div>
 
     <h3>Plan de Producción (Entrada en R¹⁰)</h3>
@@ -65,89 +69,88 @@
 </div>
 
 <script>
-    // Matriz A (3x10) - Consumo
     const A = [
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1], // CPU
-        [1, 2, 2, 4, 1, 2, 4, 2, 4, 8], // RAM
-        [2, 2, 3, 4, 2, 3, 4, 3, 4, 5]  // Horas
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 
+        [1, 2, 2, 4, 1, 2, 4, 2, 4, 8], 
+        [2, 2, 3, 4, 2, 3, 4, 3, 4, 5]  
     ];
     const limites = [50, 120, 160];
-    
-    // Función Objetivo (Ganancias por modelo)
     const ganancias = [2200, 2500, 2800, 3400, 4200, 5200, 4800, 6200, 6600, 8800];
-    
     const modelos = [
         "x1 (Oficina)", "x2 (Estudiante)", "x3 (Multimedia)", "x4 (Gamer Básica)", 
         "x5 (Gamer Intermedia)", "x6 (Gamer Avanzada)", "x7 (Workstation Básica)", 
         "x8 (Workstation Prof.)", "x9 (Servidor Pequeño)", "x10 (Alto Rendimiento)"
     ];
     
-    // Valores iniciales (Empezamos en cero para que lo construyas en la exposición)
-    const valoresX = [0, 0, 0, 0, 0, 0, 0, 47, 0, 3];
+    // Valores iniciales exactos (140/3 y 10/3)
+    let valoresX = [0, 0, 0, 0, 0, 0, 0, 140/3, 0, 10/3];
 
-    // Formateador de moneda MXN
-    const formatoMoneda = new Intl.NumberFormat('es-MX', {
-        style: 'currency',
-        currency: 'MXN'
-    });
+    const formatoMoneda = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' });
 
     function updateTransform() {
-        let y = [0, 0, 0]; // Vector de salida (recursos)
-        let z = 0;         // Ganancia total
+        let y = [0, 0, 0]; 
+        let z = 0;         
 
-        // Calcular T(x) = Ax y Z
         for (let j = 0; j < 10; j++) {
-            z += ganancias[j] * valoresX[j]; // Sumar a la ganancia
+            z += ganancias[j] * valoresX[j]; 
             for (let i = 0; i < 3; i++) {
-                y[i] += A[i][j] * valoresX[j]; // Sumar a los recursos
+                y[i] += A[i][j] * valoresX[j]; 
             }
         }
 
-        // Actualizar UI Ganancia
         document.getElementById('val-ganancia').innerText = formatoMoneda.format(z);
 
-        // Actualizar UI Recursos
         const recursos = ['cpu', 'ram', 'horas'];
         for (let i = 0; i < 3; i++) {
-            document.getElementById(`val-${recursos[i]}`).innerText = y[i];
+            // Mostrar recursos con 2 decimales para precisión
+            document.getElementById(`val-${recursos[i]}`).innerText = y[i].toFixed(2);
             let bar = document.getElementById(`bar-${recursos[i]}`);
             let porcentaje = (y[i] / limites[i]) * 100;
             
-            // Limitar el ancho visual al 100%
             bar.style.width = Math.min(porcentaje, 100) + '%';
+            bar.className = 'bar-fill'; 
             
-            // Lógica de colores
-            bar.className = 'bar-fill'; // Reset classes
-            if (y[i] > limites[i]) {
-                bar.classList.add('warning'); // Rojo (Inviable)
+            if (y[i] > limites[i] + 0.01) { // Margen de error por decimales
+                bar.classList.add('warning'); 
             } else if (porcentaje > 90) {
-                bar.classList.add('optimal'); // Amarillo (Agotando recurso)
+                bar.classList.add('optimal'); 
             } else {
-                bar.classList.add('safe');    // Azul (Con holgura)
+                bar.classList.add('safe');    
             }
         }
     }
 
-    // Generar Sliders dinámicamente
-    const container = document.getElementById('sliders-container');
-    modelos.forEach((modelo, index) => {
-        const div = document.createElement('div');
-        div.className = 'slider-group';
-        div.innerHTML = `
-            <label>
-                <span>${modelo}</span>
-                <span class="ganancia-unitaria">(+$${ganancias[index]} c/u)</span>
-            </label>
-            <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
-                <span class="val-display" id="display-x${index}">${valoresX[index]} unidades</span>
-            </div>
-            <input type="range" min="0" max="60" value="${valoresX[index]}" id="slider-x${index}" 
-                oninput="valoresX[${index}] = parseInt(this.value); document.getElementById('display-x${index}').innerText = this.value + ' unidades'; updateTransform();">
-        `;
-        container.appendChild(div);
-    });
+    function renderSliders() {
+        const container = document.getElementById('sliders-container');
+        container.innerHTML = ''; // Limpiar antes de renderizar
+        modelos.forEach((modelo, index) => {
+            const div = document.createElement('div');
+            div.className = 'slider-group';
+            // Mostrar valor inicial con 2 decimales
+            const displayVal = valoresX[index].toFixed(2);
+            div.innerHTML = `
+                <label>
+                    <span>${modelo}</span>
+                    <span class="ganancia-unitaria">(+$${ganancias[index]} c/u)</span>
+                </label>
+                <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                    <span class="val-display" id="display-x${index}">${displayVal} unidades</span>
+                </div>
+                <input type="range" min="0" max="60" step="0.01" value="${valoresX[index]}" id="slider-x${index}" 
+                    oninput="valoresX[${index}] = parseFloat(this.value); document.getElementById('display-x${index}').innerText = parseFloat(this.value).toFixed(2) + ' unidades'; updateTransform();">
+            `;
+            container.appendChild(div);
+        });
+    }
 
-    // Iniciar
+    function resetToOptimal() {
+        valoresX = [0, 0, 0, 0, 0, 0, 0, 140/3, 0, 10/3];
+        renderSliders();
+        updateTransform();
+    }
+
+    // Inicializar
+    renderSliders();
     updateTransform();
 </script>
 
