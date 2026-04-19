@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador SYSMX Hardware</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 15px; }
+        .container { max-width: 600px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        h1 { font-size: 1.5rem; color: #2c3e50; text-align: center; }
+        .dashboard { background: #2c3e50; color: white; padding: 15px; border-radius: 8px; margin-bottom: 20px; position: sticky; top: 0; z-index: 100; }
+        .resource { margin-bottom: 10px; }
+        .resource span { font-weight: bold; }
+        .bar-bg { width: 100%; background: #ddd; border-radius: 5px; height: 20px; overflow: hidden; margin-top: 5px; }
+        .bar-fill { height: 100%; background: #27ae60; width: 0%; transition: width 0.3s, background 0.3s; }
+        .warning { background: #c0392b !important; }
+        .slider-group { margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
+        .slider-group label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 0.9rem; }
+        input[type=range] { width: 100%; }
+        .val-display { color: #2980b9; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Transformación: T(x) = Ax</h1>
+    
+    <div class="dashboard" id="dashboard">
+        <h3>Consumo de Recursos (Salida en R³)</h3>
+        <div class="resource">
+            Procesadores: <span id="val-cpu">0</span> / 50
+            <div class="bar-bg"><div class="bar-fill" id="bar-cpu"></div></div>
+        </div>
+        <div class="resource">
+            Memoria RAM: <span id="val-ram">0</span> / 120
+            <div class="bar-bg"><div class="bar-fill" id="bar-ram"></div></div>
+        </div>
+        <div class="resource">
+            Horas de Ensamble: <span id="val-horas">0</span> / 160
+            <div class="bar-bg"><div class="bar-fill" id="bar-horas"></div></div>
+        </div>
+    </div>
+
+    <h3>Plan de Producción (Entrada en R¹⁰)</h3>
+    <div id="sliders-container"></div>
+</div>
+
+<script>
+    // Matriz A (3x10)
+    const A = [
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1], // CPU
+        [1, 2, 2, 4, 1, 2, 4, 2, 4, 8], // RAM
+        [2, 2, 3, 4, 2, 3, 4, 3, 4, 5]  // Horas
+    ];
+    const limites = [50, 120, 160];
+    const modelos = [
+        "x1 (Oficina)", "x2 (Estudiante)", "x3 (Multimedia)", "x4 (Gamer Básica)", 
+        "x5 (Gamer Intermedia)", "x6 (Gamer Avanzada)", "x7 (Workstation Básica)", 
+        "x8 (Workstation Prof.)", "x9 (Servidor Pequeño)", "x10 (Alto Rendimiento)"
+    ];
+    
+    // Valores iniciales (Solución óptima redondeada)
+    const valoresX = [0, 0, 0, 0, 0, 0, 0, 47, 0, 3];
+
+    function updateTransform() {
+        let y = [0, 0, 0];
+        // Calcular T(x) = Ax
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 10; j++) {
+                y[i] += A[i][j] * valoresX[j];
+            }
+        }
+
+        // Actualizar UI
+        const recursos = ['cpu', 'ram', 'horas'];
+        for (let i = 0; i < 3; i++) {
+            document.getElementById(`val-${recursos[i]}`).innerText = y[i];
+            let bar = document.getElementById(`bar-${recursos[i]}`);
+            let porcentaje = (y[i] / limites[i]) * 100;
+            bar.style.width = Math.min(porcentaje, 100) + '%';
+            
+            if (y[i] > limites[i]) {
+                bar.classList.add('warning');
+            } else {
+                bar.classList.remove('warning');
+            }
+        }
+    }
+
+    // Generar Sliders dinámicamente
+    const container = document.getElementById('sliders-container');
+    modelos.forEach((modelo, index) => {
+        const div = document.createElement('div');
+        div.className = 'slider-group';
+        div.innerHTML = `
+            <label>${modelo}: <span class="val-display" id="display-x${index}">${valoresX[index]}</span> unidades</label>
+            <input type="range" min="0" max="60" value="${valoresX[index]}" id="slider-x${index}" 
+                oninput="valoresX[${index}] = parseInt(this.value); document.getElementById('display-x${index}').innerText = this.value; updateTransform();">
+        `;
+        container.appendChild(div);
+    });
+
+    // Iniciar con valores por defecto
+    updateTransform();
+</script>
+
+</body>
+</html>
