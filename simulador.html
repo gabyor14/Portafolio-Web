@@ -109,7 +109,7 @@
     const limites = [50, 120, 160];
     const fmt = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' });
 
-    let valoresX = [0, 0, 0, 0, 0, 0, 0, 46.67, 0, 3.33];
+    let valoresX = [0, 0, 0, 0, 0, 0, 0, 140/3, 0, 10/3];
 
     function init() {
         // Generar sliders dinámicamente
@@ -166,12 +166,12 @@
     }
 
     function loadOptimal() {
-        valoresX = [0, 0, 0, 0, 0, 0, 0, 46.67, 0, 3.33];
+        valoresX = [0, 0, 0, 0, 0, 0, 0, 140/3, 0, 10/3];
         modelos.forEach((_, i) => {
-            document.getElementById('input-x' + i).value = valoresX[i];
-            document.getElementById('label-x' + i).innerText = valoresX[i];
-        });
-        updateProd();
+        document.getElementById('input-x' + i).value = valoresX[i];
+        document.getElementById('label-x' + i).innerText = valoresX[i].toFixed(2);
+    });
+    updateProd();
     }
 
     // Funciones Pestaña 2
